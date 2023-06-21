@@ -62,7 +62,7 @@ length = 4
 print("Unmodified bubble sort")
 for DataIndex in range(length):
     print(DataIndex)
-    f = open(f"data{DataIndex}.txt","r")
+    f = open(f"./data{DataIndex}.txt","r")
     dataStr = f.read()
     data =list(map(int,dataStr.split(", ") ))
     f.close()
@@ -72,14 +72,14 @@ for DataIndex in range(length):
     # print(sorted)
     time_result = time.perf_counter() - start
     print(time_result)
-    f = open(f"Umodified Bubble Sort {DataIndex}.txt", "w")
+    f = open(f"./Umodified Bubble Sort {DataIndex}.txt", "w")
     f.write(str(data))
 
 
 print("\nModified Bublesort")
 for DataIndex in range(length):
     print(DataIndex)
-    f = open(f"data{DataIndex}.txt", "r")
+    f = open(f"./data{DataIndex}.txt", "r")
     dataStr = f.read()
     data = list(map(int, dataStr.split(", ")))
     f.close()
@@ -89,13 +89,13 @@ for DataIndex in range(length):
     # print(data)
     time_result = time.perf_counter() - start
     print(time_result)
-    f = open(f"nModified Bubble Sort {DataIndex}.txt", "w")
+    f = open(f"./Modified Bubble Sort {DataIndex}.txt", "w")
     f.write(str(data))
 
 print("\nInsertionSort")
 for DataIndex in range(length):
     print(DataIndex)
-    f = open(f"data{DataIndex}.txt", "r")
+    f = open(f"./data{DataIndex}.txt", "r")
     dataStr = f.read()
     data = list(map(int, dataStr.split(", ")))
     f.close()
@@ -105,13 +105,13 @@ for DataIndex in range(length):
     # print(data)
     time_result = time.perf_counter() - start
     print(time_result)
-    f = open(f"nInsertionSort {DataIndex}.txt", "w")
+    f = open(f"./InsertionSort {DataIndex}.txt", "w")
     f.write(str(data))
 
 print("\nSelection Sort")
 for DataIndex in range(length):
     print(DataIndex)
-    f = open(f"data{DataIndex}.txt", "r")
+    f = open(f"./data{DataIndex}.txt", "r")
     dataStr = f.read()
     data = list(map(int, dataStr.split(", ")))
     f.close()
@@ -121,5 +121,5 @@ for DataIndex in range(length):
     # print(data)
     time_result = time.perf_counter() - start
     print(time_result)
-    f = open(f"election Sort {DataIndex}.txt", "w")
+    f = open(f"./selection Sort {DataIndex}.txt", "w")
     f.write(str(data))
