@@ -38,4 +38,3 @@ with concurrent.futures.ThreadPoolExecutor() as executor:
         futures.append(future)
     for future in futures:
         print(future.result())
-        
