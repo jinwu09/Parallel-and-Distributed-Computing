@@ -1,67 +1,21 @@
 import psutil
-import multiprocessing as mp
+import concurrent.futures
 
 
-def odd_even_sort(arr):
-    n = len(arr)
-    sorted = False
-
-    while not sorted:
-        sorted = True
-        # Perform odd-even sort on odd indices
-        for i in range(1, n - 1, 2):
+def parallel_oddeven_sort(arr):
+    def oddeven_sort_phase(arr, is_odd):
+        start = 1 if is_odd else 0
+        for i in range(start, len(arr) - 1, 2):
             if arr[i] > arr[i + 1]:
                 arr[i], arr[i + 1] = arr[i + 1], arr[i]
-                sorted = False
 
-        # Perform odd-even sort on even indices
-        for i in range(0, n - 1, 2):
-            if arr[i] > arr[i + 1]:
-                arr[i], arr[i + 1] = arr[i + 1], arr[i]
-                sorted = False
-
-
-def parallel_odd_even_sort(arr):
     n = len(arr)
-    processes = []
-
-    while True:
-        sorted = True
-
-        # Perform odd-even sort on odd indices in parallel
-        for i in range(1, n - 1, 2):
-            if arr[i] > arr[i + 1]:
-                sorted = False
-                p = mp.Process(target=swap_elements, args=(arr, i, i + 1))
-                processes.append(p)
-                p.start()
-
-        # Wait for processes to finish
-        for p in processes:
-            p.join()
-
-        processes.clear()
-
-        # Perform odd-even sort on even indices in parallel
-        for i in range(0, n - 1, 2):
-            if arr[i] > arr[i + 1]:
-                sorted = False
-                p = mp.Process(target=swap_elements, args=(arr, i, i + 1))
-                processes.append(p)
-                p.start()
-
-        # Wait for processes to finish
-        for p in processes:
-            p.join()
-
-        processes.clear()
-
-        if sorted:
-            break
-
-
-def swap_elements(arr, i, j):
-    arr[i], arr[j] = arr[j], arr[i]
+    with concurrent.futures.ThreadPoolExecutor(max_workers=n) as executor:
+        for i in range(n):
+            if i % 2 == 0:
+                executor.submit(oddeven_sort_phase, arr, True)
+            else:
+                executor.submit(oddeven_sort_phase, arr, False)
 
 
 def print_memory_usage():
@@ -88,6 +42,6 @@ if __name__ == "__main__":
     print("Original array:")
     print_memory_usage()
 
-    parallel_odd_even_sort(IntData)
+    parallel_oddeven_sort(IntData)
     print("parallel_odd_even_sort")
     print_memory_usage()
